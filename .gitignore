@@ -1,0 +1,19 @@
+main.cpp
+
+# Ignore the build and dirs
+
+build
+lib/*
+
+# Ignore any executebles
+
+bin/*
+
+#ide staff
+.cproject
+.project
+.settings/*
+.cproject
+CMakeLists.txt
+./idea/*
+cmake-build-debug/*
