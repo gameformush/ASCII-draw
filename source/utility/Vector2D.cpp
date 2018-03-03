@@ -1,8 +1,11 @@
 //
-// Created by myst on 2/26/18.
-//
 
 #include "Vector2D.h"
+
+//
+// Created by myst on 2/26/18.
+ASCII_Draw::Vector2D::Vector2D():x(0), y(0) {
+}
 
 int ASCII_Draw::Vector2D::getX() const {
     return x;

@@ -14,6 +14,7 @@ namespace  ASCII_Draw {
     private:
         tm_container transform;
     public:
+        Transform_matrix();
         Transform_matrix(tm_container &);
         void append_transform(const Transform_matrix &);
         std::pair<int, int> transfrom_point(const std::pair<int, int> &);

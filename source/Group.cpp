@@ -3,6 +3,7 @@
 //
 
 #include "Group.h"
+#include <tuple>
 
 namespace ASCII_Draw
 {
@@ -51,11 +52,25 @@ namespace ASCII_Draw
             Vector2D pos = child->getPosition();
             int w = child->getWidth();
             int h = child->getHeight();
-            for (int x = pos.getX(); x < w + pos.getX(); ++x) {
-                for (int y = pos.getY(); y < h + pos.getY(); ++y) {
-                     setPixel(
-                             {x, y},
-                             child->getPixel({x - pos.getX(), y - pos.getY()})
+            for (int x = 0; x < w; ++x) {
+                for (int y = 0; y < h; ++y) {
+
+                    int xn = 0, yn = 0;
+                    std::pair<int, int> new_coord = child->transfrom_point({x, y});
+                    std::tie(xn, yn) = new_coord;
+                    xn += pos.getX();
+                    yn += pos.getY();
+                    Pixel pixel = child->getPixel({x, y});
+                    if (xn < 0 || yn < 0
+                        ||xn >= getWidth() || yn >= getHeight() ||
+                        pixel.getContent() == getDefault_pixel().getContent())
+                    {
+                        continue; // skip all that doesn't fit in to group buffer;
+                    }
+
+                    setPixel(
+                             {xn , yn},
+                             pixel
                      );
                 }
             }

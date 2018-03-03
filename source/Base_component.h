@@ -30,15 +30,17 @@ namespace ASCII_Draw
         int height;
         int width;
         bool dirty;
+        int z_index;
 
     protected:
         virtual void _render();
     public:
+        Base_component();
         Base_component(int width, int height, Vector2D &position);
 
         // Logic methods
 
-        void resize(unsigned int, unsigned int);
+        void resize(int, int);
         bool is_dirt() const;
         void update();
         void clear_buffer();
@@ -65,15 +67,15 @@ namespace ASCII_Draw
 
         /*
          * Transformation wrappers
-         * Transformation itself don't involve re-rendering but require parent to update
-         * in order to make re-composition
+         * Transformation itself don't involve re-rendering but require
+         * parent to update in order to make re-composition
          */
 
-        void scale(std::pair<double, double> &);
+        void scale(const std::pair<double, double> &);
         void rotate(double rad = 0);
-        void translate(ASCII_Draw::Vector2D &);
-        void transform(ASCII_Draw::Transform_matrix &);
-        void set_transformation(ASCII_Draw::Transform_matrix &);
+        void translate(const Vector2D &);
+        void transform(const Transform_matrix &);
+        void set_transformation(const Transform_matrix &);
         void skew(double ax =0, double ay = 0);
     };
 }

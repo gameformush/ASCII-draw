@@ -19,7 +19,7 @@ void ASCII_Draw::Circle::_render() {
 //                buffer[x][y] = Pixel(getDefault_pixel());
 //        }
 //    }
-    for(double dt = 0.1, t=0; t < 2* M_PI; t += dt)
+    for(double dt = 0.01, t=0; t < 2* M_PI; t += dt)
     {
         int x = (int)round((radius-1)*cos(t) + (radius -1));
         int y = (int)round((radius -1)*sin(t) + (radius - 1));

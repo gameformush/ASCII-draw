@@ -8,17 +8,29 @@
 namespace ASCII_Draw
 {
 
-    Base_component::Base_component(int height, int width, Vector2D &position):position(position)
-    {
-        //make sure nothing is breaking because of zero width/height
-        this->width = width != 0 ? width : 1;
-        this->height = height != 0 ? height : 1;
+    Base_component::Base_component():position(Vector2D({0, 0})), z_index(0) {
+        this->width = 1;
+        this->height = 1;
         this->default_pixel = new Pixel(" ", 17, 255);
+        this->parent = nullptr;
         this->buffer = std::vector<std::vector<ASCII_Draw::Pixel >>(
-                (unsigned int)width, std::vector<Pixel >((unsigned int)height, Pixel(*this->default_pixel))
+                (unsigned int)this->height, std::vector<Pixel >((unsigned int)this->width, Pixel(*this->default_pixel))
         );
         dirty = true;
-    }   
+    }
+
+    Base_component::Base_component(int width, int height, Vector2D &position):position(position), z_index(0)
+    {
+        //make sure nothing is breaking because of zero width/height
+        this->width = width >= 0 ? width : 1;
+        this->height = height >= 0 ? height : 1;
+        this->default_pixel = new Pixel(" ", 17, 255);
+        this->parent = nullptr;
+        this->buffer = std::vector<std::vector<ASCII_Draw::Pixel >>(
+                (unsigned int)this->height, std::vector<Pixel >((unsigned int)this->width, Pixel(*this->default_pixel))
+        );
+        dirty = true;
+    }
 
     void Base_component::_render() {
 
@@ -31,13 +43,16 @@ namespace ASCII_Draw
         dirty = false;
     }
 
-    void Base_component::resize(unsigned int w, unsigned int h) {
+    void Base_component::resize(int w, int h) {
+        if(w <= 0 || h <= 0){
+            throw ERANGE;
+        }
         this->width = w;
         this->height = h;
-        buffer.resize(w);
+        buffer.resize((unsigned)h);
         for(int i = 0; i < buffer.size(); i++)
         {
-            buffer[i].resize(h, Pixel("+", 17, 255));
+            buffer[i].resize((unsigned)w, Pixel(getDefault_pixel()));
         }
     }
 
@@ -84,7 +99,7 @@ namespace ASCII_Draw
     }
 
     void Base_component::setPixel(const std::pair<int, int> & index, ASCII_Draw::Pixel pixel) {
-        buffer[index.first][index.second] = Pixel(pixel);
+        buffer[index.second][index.first] = Pixel(pixel);
     }
 
     const Pixel &Base_component::getDefault_pixel() const {
@@ -112,12 +127,16 @@ namespace ASCII_Draw
     }
 
     ASCII_Draw::Pixel Base_component::getPixel(const std::pair<int, int> & index) const {
-        return buffer[index.first][index.second];
+        if(index.second >= height || index.first >= width ||
+           index.second < 0 || index.first < 0){
+            throw ERANGE;
+        }
+        return buffer[index.second][index.first];
     }
 
     // Transformation wrappers, look same but see no other way to do that
 
-    void Base_component::scale(std::pair<double, double> &factor) {
+    void Base_component::scale(const std::pair<double, double> &factor) {
         if(parent != nullptr) parent->update();
         Transformable::scale(factor);
     }
@@ -127,17 +146,17 @@ namespace ASCII_Draw
         Transformable::rotate(rad);
     }
 
-    void Base_component::translate(ASCII_Draw::Vector2D & v) {
+    void Base_component::translate(const Vector2D &v) {
         if(parent != nullptr) parent->update();
         Transformable::translate(v);
     }
 
-    void Base_component::transform(ASCII_Draw::Transform_matrix & tm) {
+    void Base_component::transform(const Transform_matrix &tm) {
         if(parent != nullptr) parent->update();
         Transformable::transform(tm);
     }
 
-    void Base_component::set_transformation(ASCII_Draw::Transform_matrix & tm) {
+    void Base_component::set_transformation(const Transform_matrix &tm) {
         if(parent != nullptr) parent->update();
         Transformable::set_transformation(tm);
     }

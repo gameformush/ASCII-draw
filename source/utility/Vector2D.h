@@ -10,6 +10,7 @@ namespace ASCII_Draw {
         int x;
         int y;
     public:
+        Vector2D();
         Vector2D(int x, int y)
         {
             this->x = x;
