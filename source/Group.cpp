@@ -62,11 +62,11 @@ namespace ASCII_Draw
                     yn += pos.getY();
                     Pixel pixel = child->getPixel({x, y});
                     if (xn < 0 || yn < 0
-                        ||xn >= getWidth() || yn >= getHeight() ||
-                        pixel.getContent() == getDefault_pixel().getContent())
+                        ||xn >= getWidth() || yn >= getHeight())
                     {
-                        continue; // skip all that doesn't fit in to group buffer;
+                        continue; // skip all that doesn't fit into group buffer;
                     }
+                    if(pixel.getContent() == getDefault_pixel().getContent() || pixel.isTransparent()) continue;
 
                     setPixel(
                              {xn , yn},

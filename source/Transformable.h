@@ -15,12 +15,12 @@ namespace ASCII_Draw {
         ASCII_Draw::Transform_matrix transform_matrix;
     public:
         Transformable();
-        void scale(const std::pair<double, double> &factor);
-        void rotate(double rad = 0);
-        void translate(const Vector2D &);
-        void transform(const Transform_matrix &);
-        void set_transformation(const Transform_matrix &);
-        void skew(double ax =0, double ay = 0);
+        virtual void scale(const std::pair<double, double> &factor);
+        virtual void rotate(double rad = 0);
+        virtual void translate(const Vector2D &);
+        virtual void transform(const Transform_matrix &);
+        virtual void set_transformation(const Transform_matrix &);
+        virtual void skew(double ax =0, double ay = 0);
         std::pair<int, int> transfrom_point(const std::pair<int, int> &);
         ASCII_Draw::Transform_matrix get_matrix();
     };

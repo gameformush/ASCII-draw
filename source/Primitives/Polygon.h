@@ -16,8 +16,12 @@ namespace ASCII_Draw {
     protected:
         void _render();
     public:
-        Polygon(int, int, Vector2D);
+        Polygon();
+        Polygon(int, int,const Vector2D &);
         void close();
+        const std::vector<ASCII_Draw::Vector2D> & getPath() const;
+        void setPath(const std::vector<ASCII_Draw::Vector2D> & path);
+        bool isClosed();
         void addPoint(const Vector2D &);
     };
 }

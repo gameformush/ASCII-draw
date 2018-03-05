@@ -3,9 +3,10 @@
 //
 
 #include "Circle.h"
+
 #define _USE_MATH_DEFINES
 
-ASCII_Draw::Circle::Circle(ASCII_Draw::Vector2D position, unsigned int radius):Base_component(2*radius , 2*radius, position) {
+ASCII_Draw::Circle::Circle(const ASCII_Draw::Vector2D & position, unsigned int radius):Base_component(2*radius , 2*radius, position) {
     this->radius = radius;
 }
 
@@ -23,7 +24,7 @@ void ASCII_Draw::Circle::_render() {
     {
         int x = (int)round((radius-1)*cos(t) + (radius -1));
         int y = (int)round((radius -1)*sin(t) + (radius - 1));
-        setPixel({x, y}, Pixel("*", 17, 255));
+        setPixel({x, y});
     }
 }
 

@@ -3,7 +3,6 @@
 //
 
 #include "Base_component.h"
-#include "./utility/Layer2D.h"
 
 namespace ASCII_Draw
 {
@@ -11,23 +10,25 @@ namespace ASCII_Draw
     Base_component::Base_component():position(Vector2D({0, 0})), z_index(0) {
         this->width = 1;
         this->height = 1;
-        this->default_pixel = new Pixel(" ", 17, 255);
+        this->default_pixel = Transparent;
+        this->style = Pixel("*", RGB(34, 55, 34));
         this->parent = nullptr;
         this->buffer = std::vector<std::vector<ASCII_Draw::Pixel >>(
-                (unsigned int)this->height, std::vector<Pixel >((unsigned int)this->width, Pixel(*this->default_pixel))
+                (unsigned int)this->height, std::vector<Pixel >((unsigned int)this->width, Pixel(this->default_pixel))
         );
         dirty = true;
     }
 
-    Base_component::Base_component(int width, int height, Vector2D &position):position(position), z_index(0)
+    Base_component::Base_component(int width, int height, const Vector2D &position): position(position), z_index(0)
     {
         //make sure nothing is breaking because of zero width/height
         this->width = width >= 0 ? width : 1;
         this->height = height >= 0 ? height : 1;
-        this->default_pixel = new Pixel(" ", 17, 255);
+        this->default_pixel = Transparent;
+        this->style = Pixel("*", RGB(32, 32, 154));
         this->parent = nullptr;
         this->buffer = std::vector<std::vector<ASCII_Draw::Pixel >>(
-                (unsigned int)this->height, std::vector<Pixel >((unsigned int)this->width, Pixel(*this->default_pixel))
+                (unsigned int)this->height, std::vector<Pixel >((unsigned int)this->width, Pixel(this->default_pixel))
         );
         dirty = true;
     }
@@ -83,7 +84,7 @@ namespace ASCII_Draw
     }
 
     void Base_component::setDefault_pixel(const Pixel &default_pixel) {
-        this->default_pixel = new Pixel(default_pixel);
+        this->default_pixel = Pixel(default_pixel);
     }
 
     void Base_component::setHeight(int height) {
@@ -98,12 +99,12 @@ namespace ASCII_Draw
         this->position = position;
     }
 
-    void Base_component::setPixel(const std::pair<int, int> & index, ASCII_Draw::Pixel pixel) {
+    void Base_component::setPixel(const std::pair<int, int> &index, const Pixel &pixel) {
         buffer[index.second][index.first] = Pixel(pixel);
     }
 
     const Pixel &Base_component::getDefault_pixel() const {
-        return *default_pixel;
+        return default_pixel;
     }
 
     Base_component *Base_component::getParent() const {
@@ -164,5 +165,17 @@ namespace ASCII_Draw
     void Base_component::skew(double ax, double ay) {
         if(parent != nullptr) parent->update();
         Transformable::skew(ax, ay);
+    }
+
+    void Base_component::setStyle(const Pixel & pixel) {
+        style = pixel;
+    }
+
+    const Pixel &Base_component::getStyle() const {
+        return style;
+    }
+
+    void Base_component::setPixel(const std::pair<int, int> & pos) {
+        setPixel(pos, style);
     }
 }

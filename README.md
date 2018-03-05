@@ -5,17 +5,17 @@ Core API is component based system
 ### Features task list
 #### components
 - [ ] Rectangle
-- [ ] Line
+- [X] Line
 - [ ] Paths
-- [ ] Circle
+- [X] Circle
 #### Composing
 - [ ] Add
 - [ ] Substract
 - [ ] overlap
 #### Transformation
-- [ ] Scale
-- [ ] Rotate
-- [ ] Traslate
-- [ ] Transform
-- [ ] Set transform
+- [X] Scale
+- [X] Rotate
+- [X] Traslate
+- [X] Transform
+- [X] Set transform
 

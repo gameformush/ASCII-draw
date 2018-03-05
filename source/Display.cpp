@@ -3,6 +3,7 @@
 //
 
 #include "Display.h"
+#include "ASCII_encoder.h"
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <chrono>
@@ -24,19 +25,17 @@ void ASCII_Draw::Display::render(bool force, std::ostringstream &buffer) {
     }
     // end of resize
 
-    ASCII_Draw::ASCII_encoder encoder;
-
     for (int y = 0; y < root->getHeight(); ++y) {
         for (int x = 0; x < root->getWidth(); ++x) {
             buffer << root->getPixel({x, y});
         }
         buffer << "\n";
     }
-    std::cout << encoder.move_left((unsigned short)root->getWidth());
+    std::cout << ASCII_encoder::move_left((unsigned short)root->getWidth());
     std::cout << buffer.str();
     std::cout.flush();
-    std::cout << encoder.move_left((unsigned short)root->getWidth());
-    std::cout << encoder.move_up((unsigned short)(root->getHeight()));
+    std::cout << ASCII_encoder::move_left((unsigned short)root->getWidth());
+    std::cout << ASCII_encoder::move_up((unsigned short)(root->getHeight()));
     std::cout.flush();
     buffer.str("");
     buffer.clear();
@@ -59,6 +58,5 @@ ASCII_Draw::Display::Display() {
 }
 
 void ASCII_Draw::Display::clear() {
-    ASCII_encoder encoder;
-    std::cout << encoder.clear_all();
+    std::cout << ASCII_encoder::clear_all();
 }

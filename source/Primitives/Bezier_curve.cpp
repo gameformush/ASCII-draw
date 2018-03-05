@@ -13,7 +13,7 @@ void ASCII_Draw::Bezier_curve::_render() {
         int y = (int)(((1 - t) * (1 - t)) * pivot_points[0].getY() +
                       (1 - t) * 2 * t * pivot_points[1].getY() +
                       t * t * pivot_points[2].getY() + 0.5);
-        setPixel({x, y}, Pixel("x", 14, 127));
+        setPixel({x, y});
     }
 }
 

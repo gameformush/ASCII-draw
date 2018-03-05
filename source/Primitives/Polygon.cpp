@@ -13,12 +13,16 @@ void ASCII_Draw::Polygon::_render() {
                                             - path[i].getX()) * t + 0.5) - getPosition().getX();
             int y = (int)(path[i].getY() + (path[closed && i == path.size() - 1 ? 0 : i + 1].getY()
                                             - path[i].getY()) * t + 0.5) - getPosition().getY();
-            setPixel({x ,y}, Pixel("#", 0, 14));
+            setPixel({x ,y});
         }
     }
 }
 
-ASCII_Draw::Polygon::Polygon(int width, int height, Vector2D position):Base_component(width, height, position) {
+ASCII_Draw::Polygon::Polygon(int width, int height,const Vector2D &position):Base_component(width, height, position) {
+    closed = false;
+}
+
+ASCII_Draw::Polygon::Polygon() {
     closed = false;
 }
 
@@ -42,4 +46,17 @@ void ASCII_Draw::Polygon::addPoint(const Vector2D & point) {
         resize(getWidth(), (unsigned)h + 1);
     }
     update();
+}
+
+const std::vector<ASCII_Draw::Vector2D> &ASCII_Draw::Polygon::getPath() const {
+    return path;
+}
+
+void ASCII_Draw::Polygon::setPath(const std::vector<ASCII_Draw::Vector2D> & path) {
+    this->path = path;
+    update();
+}
+
+bool ASCII_Draw::Polygon::isClosed() {
+    return closed;
 }

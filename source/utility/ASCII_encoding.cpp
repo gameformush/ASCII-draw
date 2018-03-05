@@ -18,6 +18,11 @@ namespace ASCII_Draw
     const std::string _CLEAR_ALL = "2J";
     const std::string _MOVE_UP = "A";
     const std::string _MOVE_LEFT = "D";
+    const std::string _MOVE_RIGHT = "C";
+    const std::string _MOVE_DOWN = "B";
+    const std::string _SAVE = "s";
+    const std::string _RESTORE = "u";
     const std::string _HIDE_CURSOR = "?25l";
+    const std::string _SHOW_CURSOR = "?25h";
 
 }

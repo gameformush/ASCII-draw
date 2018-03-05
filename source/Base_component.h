@@ -1,6 +1,10 @@
 //
 // Created by myst on 2/26/18.
 //
+
+#ifndef ASCII_DRAW_BASE_COMPONENT_H
+#define ASCII_DRAW_BASE_COMPONENT_H
+
 #include <string>
 #include <iterator>
 #include <iostream>
@@ -9,13 +13,9 @@
 #include <sstream>
 
 #include "Pixel.h"
-#include "Style.h"
 #include "Transformable.h"
 #include "utility/Vector2D.h"
 #include "utility/Transform_matrix.h"
-
-#ifndef ASCII_DRAW_BASE_COMPONENT_H
-#define ASCII_DRAW_BASE_COMPONENT_H
 
 namespace ASCII_Draw
 {
@@ -24,7 +24,8 @@ namespace ASCII_Draw
     {
     private:
         ASCII_Draw::Base_component * parent; // actually it's always be a Group class member
-        ASCII_Draw::Pixel * default_pixel;
+        ASCII_Draw::Pixel default_pixel;
+        ASCII_Draw::Pixel style;
         ASCII_Draw::Vector2D position;
         Pixel_buffer buffer;
         int height;
@@ -36,7 +37,7 @@ namespace ASCII_Draw
         virtual void _render();
     public:
         Base_component();
-        Base_component(int width, int height, Vector2D &position);
+        Base_component(int width, int height, const Vector2D &position);
 
         // Logic methods
 
@@ -53,18 +54,19 @@ namespace ASCII_Draw
         void setDefault_pixel(const Pixel &default_pixel);
         void setHeight(int height);
         void setWidth(int width);
-        void setPixel(const std::pair<int, int> &,ASCII_Draw::Pixel);
-
+        void setPixel(const std::pair<int, int> &, const Pixel &);
+        void setPixel(const std::pair<int, int> &);
+        void setStyle(const Pixel &);
         // getters
         
         int getHeight() const;
         int getWidth() const;
-        ASCII_Draw::Pixel   getPixel(const std::pair<int, int> &) const;
+        ASCII_Draw::Pixel getPixel(const std::pair<int, int> &) const;
         Base_component *getParent() const;
         const Vector2D &getPosition() const;
         const Pixel_buffer &getBuffer() const;
         const Pixel &getDefault_pixel() const;
-
+        const Pixel &getStyle() const;
         /*
          * Transformation wrappers
          * Transformation itself don't involve re-rendering but require

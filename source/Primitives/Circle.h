@@ -15,7 +15,7 @@ namespace ASCII_Draw {
     protected:
         void _render();
     public:
-        Circle(Vector2D, unsigned int);
+        Circle(const Vector2D &, unsigned int);
         void setRadius(int);
     };
 }
