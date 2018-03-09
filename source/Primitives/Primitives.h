@@ -8,5 +8,7 @@
 #include "Circle.h"
 #include "Polygon.h"
 #include "Bezier_curve.h"
+#include "Rectangle.h"
+#include "Text.h"
 
 #endif //ASCII_DRAW_PRIMITIVES_H

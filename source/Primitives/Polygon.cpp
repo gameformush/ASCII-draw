@@ -37,11 +37,11 @@ void ASCII_Draw::Polygon::addPoint(const Vector2D & point) {
     int w = point.getX() - getPosition().getX(),
         h = point.getY() - getPosition().getY();
     // very very bad code
-    if (w > getWidth())
+    if (w >= getWidth())
     {
         resize((unsigned)w + 1, getHeight());
     }
-    if(h > getHeight())
+    if(h >= getHeight())
     {
         resize(getWidth(), (unsigned)h + 1);
     }
@@ -53,7 +53,11 @@ const std::vector<ASCII_Draw::Vector2D> &ASCII_Draw::Polygon::getPath() const {
 }
 
 void ASCII_Draw::Polygon::setPath(const std::vector<ASCII_Draw::Vector2D> & path) {
-    this->path = path;
+    this->path.clear();
+    for(auto p : path)
+    {
+        addPoint(p);
+    }
     update();
 }
 

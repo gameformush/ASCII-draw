@@ -57,6 +57,7 @@ namespace ASCII_Draw
         void setPixel(const std::pair<int, int> &, const Pixel &);
         void setPixel(const std::pair<int, int> &);
         void setStyle(const Pixel &);
+        void setBuffer(const Pixel_buffer & buffer);
         // getters
         
         int getHeight() const;

@@ -85,18 +85,20 @@ namespace ASCII_Draw
 
     void Base_component::setDefault_pixel(const Pixel &default_pixel) {
         this->default_pixel = Pixel(default_pixel);
+        update();
     }
 
     void Base_component::setHeight(int height) {
-        this->height = height;
+        resize(width, height);
     }
 
     void Base_component::setWidth(int width) {
-        this->width = width;
+        resize(width, height);
     }
 
     void Base_component::setPosition(const Vector2D &position) {
         this->position = position;
+        update();
     }
 
     void Base_component::setPixel(const std::pair<int, int> &index, const Pixel &pixel) {
@@ -177,5 +179,10 @@ namespace ASCII_Draw
 
     void Base_component::setPixel(const std::pair<int, int> & pos) {
         setPixel(pos, style);
+    }
+
+    void Base_component::setBuffer(const Pixel_buffer & buffer) {
+        this->buffer = buffer;
+        update();
     }
 }
