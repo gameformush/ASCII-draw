@@ -9,23 +9,45 @@ namespace ASCII_Draw
 {
 
     Group::Group(unsigned int width, unsigned int height, Vector2D position):Base_component(width, height, position) {
-        this->children = std::vector<ASCII_Draw::Base_component *>(0);
+
     }
 
-    void Group::remove(ASCII_Draw::Base_component *) {
-
+    void Group::remove(ASCII_Draw::Base_component * child) {
+        auto i = std::find(children.begin(), children.end(), child);
+        if(i != children.end())
+        {
+            children.erase(i);
+        }
+        child->setParent(nullptr);
+        update();
     }
 
     void Group::remove_all() {
-
+        for(auto child: children)
+        {
+            child->setParent(nullptr);
+        }
+        children.clear();
+        update();
     }
 
-    void Group::delete_child(ASCII_Draw::Base_component *) {
-
+    void Group::delete_child(ASCII_Draw::Base_component * child) {
+        auto i = std::find(children.begin(), children.end(), child);
+        if(i != children.end())
+        {
+            children.erase(i);
+        }
+        delete child;
+        update();
     }
 
     void Group::delete_all() {
-
+        for(auto child: children)
+        {
+            delete child;
+        }
+        children.clear();
+        update();
     }
 
     void Group::_render() {
@@ -79,6 +101,14 @@ namespace ASCII_Draw
 
     void Group::add(Base_component *child) {
         child->setParent(this);
-        children.push_back(child);
+        children.insert
+                (
+                  std::upper_bound(children.begin(), children.end(), child,
+                  [](const Base_component * a, const Base_component * b) -> bool {
+                      return a->getZ_index() <= b->getZ_index();
+                  }),
+                  child
+                );
+        update();
     }
 }

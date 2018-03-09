@@ -67,6 +67,7 @@ void ASCII_Draw::Text::setText(const std::string &text) {
     {
         multylineText.push_back(token);
     }
+    update();
 }
 
 void ASCII_Draw::Text::append(const std::string &text) {
@@ -78,15 +79,18 @@ void ASCII_Draw::Text::append(const std::string &text) {
     {
         multylineText.push_back(token);
     }
+    update();
 }
 
 void ASCII_Draw::Text::clear() {
     rawText.clear();
     multylineText.clear();
+    update();
 }
 
 void ASCII_Draw::Text::align(ASCII_Draw::Alignment align) {
     alignment = align;
+    update();
 }
 
 const ASCII_Draw::Alignment & ASCII_Draw::Text::getAlignment() const {
@@ -95,6 +99,7 @@ const ASCII_Draw::Alignment & ASCII_Draw::Text::getAlignment() const {
 
 void ASCII_Draw::Text::vertical_align(ASCII_Draw::Vertical_Alignment vert_alignment) {
     this->vert_alignment = vert_alignment;
+    update();
 }
 
 const ASCII_Draw::Vertical_Alignment &ASCII_Draw::Text::getVertical_alignment() const{

@@ -19,6 +19,11 @@ void ASCII_Draw::Bezier_curve::_render() {
 
 ASCII_Draw::Bezier_curve::Bezier_curve(const ASCII_Draw::Vector2D & a, const ASCII_Draw::Vector2D & b,
                                        const ASCII_Draw::Vector2D & c) {
+    set_points(a, b, c);
+}
+
+void ASCII_Draw::Bezier_curve::set_points(const ASCII_Draw::Vector2D & a, const ASCII_Draw::Vector2D & b,
+                                          const ASCII_Draw::Vector2D & c) {
     pivot_points[0] = Vector2D(a);
     pivot_points[1] = Vector2D(b);
     pivot_points[2] = Vector2D(c);
@@ -28,12 +33,5 @@ ASCII_Draw::Bezier_curve::Bezier_curve(const ASCII_Draw::Vector2D & a, const ASC
     int y = std::min(a.getY(), std::min(b.getY(), c.getY()));
     resize(width + 1, height + 1);
     setPosition(Vector2D({x ,y}));
-}
-
-void ASCII_Draw::Bezier_curve::set_points(const ASCII_Draw::Vector2D & a, const ASCII_Draw::Vector2D & b,
-                                          const ASCII_Draw::Vector2D & c) {
-    pivot_points[0] = Vector2D(a);
-    pivot_points[1] = Vector2D(b);
-    pivot_points[2] = Vector2D(c);
     update();
 }

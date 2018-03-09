@@ -58,6 +58,7 @@ namespace ASCII_Draw
         void setPixel(const std::pair<int, int> &);
         void setStyle(const Pixel &);
         void setBuffer(const Pixel_buffer & buffer);
+        void setZ_index(int index);
         // getters
         
         int getHeight() const;
@@ -68,6 +69,7 @@ namespace ASCII_Draw
         const Pixel_buffer &getBuffer() const;
         const Pixel &getDefault_pixel() const;
         const Pixel &getStyle() const;
+        int getZ_index() const;
         /*
          * Transformation wrappers
          * Transformation itself don't involve re-rendering but require

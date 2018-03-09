@@ -20,6 +20,14 @@ namespace ASCII_Draw {
         void clear();
         void add(Base_component * child);
         void remove(Base_component * child);
+        void remove_all();
+        void delete_child(ASCII_Draw::Base_component *);
+        void delete_all();
+        void setHeight(int height);
+        void setWidth(int  width);
+        int getHeight() const;
+        int getWidth() const;
+        void resize(int width, int height);
     };
 }
 

@@ -34,16 +34,34 @@ void ASCII_Draw::Polygon::close() {
 
 void ASCII_Draw::Polygon::addPoint(const Vector2D & point) {
     path.push_back(Vector2D(point));
-    int w = point.getX() - getPosition().getX(),
-        h = point.getY() - getPosition().getY();
-    // very very bad code
+    int px = point.getX(),
+        py = point.getY(),
+        posx = getPosition().getX(),
+        posy = getPosition().getY(),
+        w = px - posx,
+        h = py - posy,
+        npx = posx,
+        npy = posy;
+
+    if(py < posy)
+    {
+        h = posy - py + getHeight();
+        npy = py;
+    }
+    if(px < posx)
+    {
+        w = posx - px + getWidth();
+        npx = px;
+    }
+
+    setPosition(Vector2D(npx, npy));
     if (w >= getWidth())
     {
-        resize((unsigned)w + 1, getHeight());
+        setWidth((unsigned)w + 1);
     }
     if(h >= getHeight())
     {
-        resize(getWidth(), (unsigned)h + 1);
+        setHeight((unsigned)h + 1);
     }
     update();
 }

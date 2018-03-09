@@ -105,6 +105,7 @@ namespace ASCII_Draw
         buffer[index.second][index.first] = Pixel(pixel);
     }
 
+    // getters
     const Pixel &Base_component::getDefault_pixel() const {
         return default_pixel;
     }
@@ -184,5 +185,13 @@ namespace ASCII_Draw
     void Base_component::setBuffer(const Pixel_buffer & buffer) {
         this->buffer = buffer;
         update();
+    }
+
+    void Base_component::setZ_index(int index) {
+        z_index = index;
+    }
+
+    int Base_component::getZ_index() const {
+        return z_index;
     }
 }
