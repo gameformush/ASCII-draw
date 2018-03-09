@@ -1,17 +1,16 @@
 # ASCII-draw
-ASCII based cross-platform drawing liblary.
+ASCII based cross-platform drawing library.
 Core API is component based system
 
 ### Features task list
 #### components
-- [ ] Rectangle
+- [X] Rectangle
 - [X] Line
-- [ ] Paths
+- [X] Paths
 - [X] Circle
 #### Composing
-- [ ] Add
 - [ ] Substract
-- [ ] overlap
+- [X] overlap
 #### Transformation
 - [X] Scale
 - [X] Rotate

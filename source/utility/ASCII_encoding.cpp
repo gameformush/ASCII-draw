@@ -4,6 +4,11 @@
 #include <string>
 #pragma once
 
+/*
+ * Not complete table of ASCII escape sequences.
+ * This table include only meaningful sequences for drawing in terminal.
+ */
+
 namespace ASCII_Draw
 {
     // ASCII encoding

@@ -6,7 +6,6 @@
 
 namespace ASCII_Draw
 {
-
     Base_component::Base_component():position(Vector2D({0, 0})), z_index(0) {
         this->width = 1;
         this->height = 1;
@@ -55,6 +54,7 @@ namespace ASCII_Draw
         {
             buffer[i].resize((unsigned)w, Pixel(getDefault_pixel()));
         }
+        update();
     }
 
     bool Base_component::is_dirt() const {
@@ -103,6 +103,7 @@ namespace ASCII_Draw
 
     void Base_component::setPixel(const std::pair<int, int> &index, const Pixel &pixel) {
         buffer[index.second][index.first] = Pixel(pixel);
+        update();
     }
 
     // getters
@@ -172,6 +173,7 @@ namespace ASCII_Draw
 
     void Base_component::setStyle(const Pixel & pixel) {
         style = pixel;
+        update();
     }
 
     const Pixel &Base_component::getStyle() const {

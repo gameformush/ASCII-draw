@@ -66,8 +66,6 @@ namespace ASCII_Draw
         }
     }
 
-    //Simplest compose implementation should change
-    // inorder to use transformations
     void Group::compose() {
         for(auto child : children)
         {
@@ -77,28 +75,30 @@ namespace ASCII_Draw
             for (int x = 0; x < w; ++x) {
                 for (int y = 0; y < h; ++y) {
 
+                    // avoid unnecessary work
+                    Pixel pixel = child->getPixel({x, y});
+                    if(pixel == getDefault_pixel()) continue;
+
+                    // transformation stuff
                     int xn = 0, yn = 0;
                     std::pair<int, int> new_coord = child->transfrom_point({x, y});
                     std::tie(xn, yn) = new_coord;
                     xn += pos.getX();
                     yn += pos.getY();
-                    Pixel pixel = child->getPixel({x, y});
-                    if (xn < 0 || yn < 0
-                        ||xn >= getWidth() || yn >= getHeight())
+                    if (xn < 0 || yn < 0 ||
+                        xn >= getWidth() || yn >= getHeight())
                     {
                         continue; // skip all that doesn't fit into group buffer;
                     }
-                    if(pixel.getContent() == getDefault_pixel().getContent() || pixel.isTransparent()) continue;
 
-                    setPixel(
-                             {xn , yn},
-                             pixel
-                     );
+                    setPixel({xn , yn}, pixel);
                 }
             }
         }
     }
 
+
+    // insert preserving order by z-index property
     void Group::add(Base_component *child) {
         child->setParent(this);
         children.insert

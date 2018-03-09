@@ -1,11 +1,19 @@
 //
+// Created by myst on 3/1/18.
+//
 
 #include "Transformable.h"
 
-//
-// Created by myst on 3/1/18.
+/*
+ * Each function handle concrete transformation by folding 3 by 3 matrix
+ */
+
 ASCII_Draw::Transformable::Transformable() {
     transform_matrix = Transform_matrix();
+}
+
+ASCII_Draw::Transformable::Transformable(const ASCII_Draw::Transform_matrix &tm) {
+    transform_matrix = Transform_matrix(tm);
 }
 
 void ASCII_Draw::Transformable::scale(const std::pair<double, double> &factor) {
@@ -49,7 +57,11 @@ void ASCII_Draw::Transformable::skew(double ax, double ay) {
     transform_matrix.append_transform(tmp);
 }
 
-ASCII_Draw::Transform_matrix ASCII_Draw::Transformable::get_matrix() {
+void ASCII_Draw::Transformable::reset() {
+    transform_matrix = Transform_matrix();
+}
+
+const ASCII_Draw::Transform_matrix & ASCII_Draw::Transformable::get_matrix() const {
     return transform_matrix;
 }
 

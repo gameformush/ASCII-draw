@@ -1,15 +1,15 @@
 //
 // Created by myst on 2/26/18.
 //
+#ifndef ASCII_DRAW_STYLE_ENCODING_H
+#define ASCII_DRAW_STYLE_ENCODING_H
+
 #include <string>
 #include "utility/ASCII_encoding.cpp"
 #include "utility/RGB.h"
 
-#ifndef ASCII_DRAW_STYLE_ENCODING_H
-#define ASCII_DRAW_STYLE_ENCODING_H
-
 /*
- * Pixel_encoder encoder implements ASCII encoding to meaningful components of type encoded_style
+ * Pixel_encoder encoder incapsulate ASCII encoding to meaningful components of type encoded_style
  * composed from some ASCII encoding pieces
  */
 
@@ -34,6 +34,7 @@ namespace ASCII_Draw
         encoded_style reset();
         encoded_style hideCursor();
         encoded_style showCursor();
+        // conversion from rbg to 256 ascii color plate because true color isn't widely supported.
         unsigned short rgbTo256(const RGB & color);
     };
 }

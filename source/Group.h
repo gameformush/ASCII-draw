@@ -2,11 +2,17 @@
 // Created by myst on 2/26/18.
 //
 
+#ifndef ASCII_DRAW_GROUP_H
+#define ASCII_DRAW_GROUP_H
+
 #include "Base_component.h"
 #include <algorithm>
 
-#ifndef ASCII_DRAW_GROUP_H
-#define ASCII_DRAW_GROUP_H
+
+/*
+ * Group it's container for Base_component
+ * Goal: make composition of children components with their transformation to its own buffer
+ */
 
 namespace ASCII_Draw
 {

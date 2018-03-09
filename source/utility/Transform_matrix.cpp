@@ -8,7 +8,7 @@ ASCII_Draw::tm_container ASCII_Draw::Transform_matrix::getMatrix() const {
     return transform;
 }
 
-std::pair<int, int> ASCII_Draw::Transform_matrix::transfrom_point(const std::pair<int, int> & point) {
+std::pair<int, int> ASCII_Draw::Transform_matrix::transfrom_point(const std::pair<int, int> & point) const {
     std::vector<std::vector<int>> tmp(3, std::vector<int>(1, 0));
     tmp[0][0] = point.first;
     tmp[1][0] = point.second;
@@ -51,6 +51,7 @@ ASCII_Draw::Transform_matrix::Transform_matrix(ASCII_Draw::tm_container & m) {
 
 ASCII_Draw::Transform_matrix::Transform_matrix() {
     tm_container tmp;
+    // default matrix -> point will not change
     tmp[0] = {1, 0, 0};
     tmp[1] = {0, 1, 0};
     tmp[2] = {0, 0, 1};

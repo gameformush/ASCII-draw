@@ -90,7 +90,7 @@ namespace ASCII_Draw
     void Pixel::setReversed(bool reversed) {
         Pixel::reversed = reversed;
     }
-
+    // rendering uses ostringstream of higher performance so there is handler for this
     std::ostringstream &operator<<(std::ostringstream &stream, const Pixel &pixel) {
         {
             pixel_encoder(pixel, stream);
@@ -104,5 +104,16 @@ namespace ASCII_Draw
 
     bool Pixel::isTransparent() const {
         return this->transparent;
+    }
+
+    bool Pixel::operator==(const Pixel &rhs) const {
+        return (
+                content == rhs.content &&
+                background == rhs.background &&
+                foreground == rhs.foreground &&
+                bold == rhs.bold &&
+                underline == rhs.underline &&
+                reversed == rhs.reversed
+        );
     }
 }

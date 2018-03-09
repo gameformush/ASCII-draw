@@ -68,6 +68,7 @@ namespace ASCII_Draw {
         }
 
         unsigned short rgbTo256(const RGB &color) {
+            // handle extended gray scale
             if(color.r == color.b && color.b == color.g)
             {
                 if(color.r < 8)
@@ -76,6 +77,7 @@ namespace ASCII_Draw {
                     return 231;
                 return (unsigned short)((unsigned short)( ((color.r - 8)/247) * 24 + 0.5) + 232);
             }
+            // other colors
             return (unsigned short)(16 + (36 * ((double)color.r / (255 * 5) )) + (6 * ((double)color.g / (255 * 5) ))
                       + ((double)color.b / (255 * 5)) + 0.5 );
         }

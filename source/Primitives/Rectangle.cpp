@@ -5,10 +5,10 @@
 #include "Rectangle.h"
 
 void ASCII_Draw::Rectangle::_render() {
-//    helper.addPoint(getPosition());
-//    helper.addPoint(Vector2D(getPosition().getX() + getWidth(), getHeight()));
-//    helper.addPoint(Vector2D(getW, getPosition().getY() + getHeight()));
-//    helper.close();
+    helper.addPoint(getPosition());
+    helper.addPoint(Vector2D(getPosition().getX() + getWidth(), getHeight()));
+    helper.addPoint(Vector2D(getW, getPosition().getY() + getHeight()));
+    helper.close();
     helper.render(true);
     setBuffer(helper.getBuffer());
 }

@@ -5,6 +5,10 @@
 #ifndef ASCII_DRAW_RGB_H
 #define ASCII_DRAW_RGB_H
 
+/*
+ * Container for rbg data type nothing more
+ */
+
 namespace ASCII_Draw
 {
     struct RGB
@@ -26,6 +30,14 @@ namespace ASCII_Draw
             this->r = other.r;
             this->b = other.b;
             this->g = other.g;
+        }
+        bool operator ==(const RGB & other) const
+        {
+            return (
+                    r == other.r &&
+                    g == other.g &&
+                    b == other.b
+            );
         }
     };
 }
